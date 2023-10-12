@@ -25,8 +25,8 @@ Sigue estos pasos para configurar y ejecutar el proyecto:
 1. **Clona el repositorio**:
 
    ```shell
-   git clone https://github.com/tuusuario/tuproyecto.git
-   cd tuproyecto
+   git clone https://github.com/PPS-2023c2-Grupo-1/desapp-frontend.git
+   cd desapp-frontend
 
 2. **Instala las dependecias**:
    ```shell
