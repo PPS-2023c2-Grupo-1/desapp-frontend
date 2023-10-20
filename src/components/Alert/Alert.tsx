@@ -5,6 +5,9 @@ import {
 import React from "react"
 import styled from 'styled-components'
 
+
+
+
 export const StyledAlert = styled(MuiAlert)`
   align-items: center;
   border-radius: 10px;
@@ -25,6 +28,7 @@ export const Alert = ({
   return enable
     ? (
       <StyledAlert {...props}>
+        
         { children || text }
       </StyledAlert>
     ) : <></>
