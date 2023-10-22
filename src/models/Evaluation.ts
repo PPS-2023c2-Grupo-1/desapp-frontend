@@ -20,7 +20,9 @@ export interface IEvaluation {
   student?: IStudent,
   submitted?: ISubmitted,
   type: number,
-  variables: number[],
+  variables: string[],
+  variables2: string[],
+ qualification: number,
   reflections: string,
 }
 
@@ -36,6 +38,7 @@ export interface IEvaluationResponse {
   variable4: string,
   variable5: string,
   reflections: string,
+  qualification: string,
 }
 
 export class Evaluation {
@@ -110,13 +113,22 @@ export class EvaluationAdapter extends Evaluation {
       reflections: fixString(reflections),
       submitted: assignment_submitted ? new SubmittedAdapter(assignment_submitted).json : undefined,
       student: student ? new StudentAdapter(student).json : undefined,
+      qualification: parseFloat(response.qualification),
       variables: [
-        parseInt(variable1),
-        parseInt(variable2),
-        parseInt(variable3),
-        parseInt(variable4),
-        parseInt(variable5),
+        fixString(variable1),
+        fixString(variable2),
+        fixString(variable3),
+        fixString(variable4),
+        fixString(variable5),
       ],
+      variables2: [
+        fixString(variable1),
+        fixString(variable2),
+        fixString(variable3),
+        fixString(variable4),
+        fixString(variable5),
+      ],
+      
     })
   }
 }

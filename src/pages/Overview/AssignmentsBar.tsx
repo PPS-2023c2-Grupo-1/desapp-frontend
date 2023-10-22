@@ -31,7 +31,7 @@ export const AssignmentsBar = () => {
     .map(assignment => {
       const qualifications = evaluations
         .filter(x => x.assignment?.id === assignment.id)
-        .map(x => x.variables.reduce((a, b) => a + b, 0))
+        .map(x => x.variables.map(parseFloat).reduce((a, b) => a + b, 0))
         .filter(x => x > 0)
         .sort((a, b) => a - b)
 
