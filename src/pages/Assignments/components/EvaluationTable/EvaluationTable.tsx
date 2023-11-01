@@ -122,7 +122,7 @@ export const EvaluationTable = () => {
           )
         }
         loading={!evaluations.length}
-        rows={(!!value || course || jtp || assignment) ? filtered : evaluations}
+        rows={(!!value || course || jtp || assignment?.id) ? filtered : evaluations}
       />
     </>
   )

@@ -22,10 +22,21 @@ const PreRadar = ({ data }: radarProps) => (
     dotBorderWidth={2}
     colors={[
       unahurPalette.unahurGreen.main,
-      unahurPalette.unahurBlue.main
+      unahurPalette.unahurBlue.main,
+      unahurPalette.unahurCyan.main, 
+      unahurPalette.unahurBlack.main, 
+      unahurPalette.unahurGreenAlt.main, 
+      unahurPalette.unahurGrey.main, 
+      unahurPalette.unahurOrange.main, 
+      unahurPalette.unahurRed.main, 
+      unahurPalette.unahurSoftGrey.main, 
+      unahurPalette.unahurRedAlt.main, 
+      unahurPalette.unahurSoftWhite.main, 
+      unahurPalette.unahurWhite.main
     ]}
     blendMode="multiply"
     motionConfig="wobbly"
+    
   />
 
   

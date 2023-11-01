@@ -5,6 +5,7 @@ import { selectAssignments, selectEvaluations } from '@store'
 import { SelectedContext } from './context/SelectedContext'
 import { fetchEvaluation, fetchEvaluationByCourse } from '@src/services'
 import { IAssignment } from '@src/models'
+import { Skeleton } from "@mui/material"
 
 export const AssignmentsBar = () => {
   const totalEvaluations = selectEvaluations()
@@ -46,7 +47,9 @@ export const AssignmentsBar = () => {
 
   return (
     <Box
+    
       sx={{
+        
         backgroundColor: 'var(--unahurWhite)',
         borderRadius: '20px',
         margin: '24px',
@@ -56,6 +59,7 @@ export const AssignmentsBar = () => {
       }}
     >
       <Bar data={qualifications} />
+
     </Box>
   )
 }

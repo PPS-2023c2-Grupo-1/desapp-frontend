@@ -1,6 +1,6 @@
 import React, { useContext,useEffect, useState } from "react"
 import { Modal, Quote, ReadOnlyField } from "@components"
-import { Jtp, Student, Submitted, IAssignment  } from "@models"
+import { Jtp, Student, Submitted, IAssignment, ICourse, IEvaluation } from "@models"
 import { selectAssignments, selectEvaluations } from '@store'
 import { TagsContainer} from './styles'
 import { ModalContext, SelectedContext } from "../../context"
@@ -17,23 +17,59 @@ export const EvaluationDetailModal = () => {
   const { isOpenSubmitted, closeSubmitted } = useContext(ModalContext)
   const {
     assignment,
-    course,
     evaluation,
     jtp,
     student,
     submitted,
   } = useContext(SelectedContext)
 
+  const [value, setValue] = useState<string>('')
+  const [course, setCourse] = useState<ICourse>()
+  const [filtered, setFiltered] = useState<IEvaluation[]>(evaluations)
+
   // Determina si es una autoevaluación
   const isAutoevaluation = !jtp;
-  
+  useEffect(() => {
+    let _filtered = evaluations
+    if(assignment) {
+      _filtered = _filtered.filter(x => x.assignment?.id === assignment?.id)
+    }
+    if(jtp) {
+      setCourse(undefined)
+      _filtered = _filtered.filter(x => x.jtp?.id === jtp?.id)
+    }
+    if(value) setValue('')
+    setFiltered(_filtered)
+  }, [jtp])
+
+  useEffect(() => {
+    let _filtered = evaluations.filter(x => x.type === 1); // Agregar filtro por tipo
+    if (assignment) {
+      _filtered = _filtered.filter(x => x.assignment?.id === assignment?.id);
+    }
+    if (jtp) {
+      setCourse(undefined);
+      _filtered = _filtered.filter(x => x.jtp?.id === jtp?.id);
+    }
+    if (value) {
+      setValue('');
+    }
+    setFiltered(_filtered);
+  }, [jtp]);
+  // Realiza la suma de las variables
+const totalSum = evaluation?.variables.reduce((acc, variable) => acc + parseFloat(variable), 0);
+// Convierte el resultado nuevamente a una cadena
+const totalSumAsString = totalSum?.toString();
+const professorEvaluations = evaluations.filter((evaluation) => evaluation.type === 1);
+const studentEvaluations = evaluations.filter((evaluation) => evaluation.type === 2 && evaluation.student?.id === submitted?.student?.id);
+const [showFullText, setShowFullText] = useState(false);
+
   return (
     
     <Modal
       onClose={() => { closeSubmitted() }}
       open={isOpenSubmitted}
-      title='Entrega'
-      
+      title='Entrega'      
     >
 
       { submitted?.reflections && <Quote label='Reflexion' text={submitted?.reflections} /> }
@@ -46,19 +82,25 @@ export const EvaluationDetailModal = () => {
         { jtp && <ReadOnlyField icon={<CoPresentOutlined />} label='Responsable' text={new Jtp(jtp).fullName()} /> }
         { course && <ReadOnlyField icon={<ClassOutlined />} label='Curso' text={course.name} /> }
         { submitted && <ReadOnlyField icon={<CalendarMonthOutlined />} label='Fecha Entrega' text={new Submitted(submitted).date} /> }
-         <ReadOnlyField icon={<NumbersOutlined />} label='Evaluacion' text={submitted?.qualification.toString() || '-'} />
-        <ReadOnlyField icon={<NumbersOutlined />} label='Autoevaluacion' text={evaluation?.variables.toString() || '-'} />
+        <ReadOnlyField icon={<NumbersOutlined />} label='Evaluacion' text={submitted?.qualification || '-'} />
+
+
+  <ReadOnlyField icon={<NumbersOutlined />} label='Autoevaluacion' text={totalSumAsString || '-'} />
+
         {submitted?.members && submitted?.members.map((studentId) => (
+          
   <div key={studentId}>
+    
     <ReadOnlyField
-      icon={<SchoolOutlined />}
+    
+    icon={<SchoolOutlined />}
       label={`Autoevaluación de ${studentId}`}
-      text={evaluation?.variables.toString() || '-'}
-    />
+      text={totalSumAsString || '-'}    />
   </div>
 ))}
 
 
+       
       </TagsContainer>
       {
         assignment && assignment.variables[0]  !== 'Esta actividad no será evaluada'  && evaluation   &&
@@ -121,4 +163,4 @@ export const EvaluationDetailModal = () => {
       }
     </Modal>
   )
-}
+    }
