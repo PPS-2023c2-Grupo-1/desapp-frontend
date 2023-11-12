@@ -28,6 +28,11 @@ export const StudentDetailModal = () => {
   };
 
 
+  const formatDate = (date: Date | undefined) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date ? new Date(date).toLocaleDateString('es-ES', options) : '';
+  };
+
   return (
 
     
@@ -38,7 +43,7 @@ export const StudentDetailModal = () => {
     >
     
       <TagsContainer>
-      <ReadOnlyField icon={<CalendarMonthOutlined />} label='Nacimiento' text={student?.birthdate?.toDateString()} />
+      <ReadOnlyField icon={<CalendarMonthOutlined />} label='Nacimiento' text={formatDate(student?.birthdate)} />
       <ReadOnlyField icon={<EmailOutlined />} label={"Correo"} text={student?.email} />
       <ReadOnlyField icon={<BadgeOutlined />} label='DNI' text={student?.dni} />
       <ReadOnlyField icon={<ClassOutlined />} label='Materia' text={student?.course.name} />
