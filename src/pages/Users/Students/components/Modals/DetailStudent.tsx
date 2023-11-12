@@ -8,6 +8,14 @@ export const DetailStudentModal = () => {
   const { isOpenDetail, closeDetail } = useContext(ModalContext)
   const { selected } = useContext(StudentContext)
 
+
+
+
+  const formatDate = (date: Date | undefined) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date ? new Date(date).toLocaleDateString('es-ES', options) : '';
+  };
+
   return (
     <Modal
       onClose={() => { closeDetail() }}
@@ -16,7 +24,8 @@ export const DetailStudentModal = () => {
     >
       <Quote text={selected.about} />
       <TagsContainer>
-        <ReadOnlyField icon={<CalendarMonthOutlined />} label='Nacimiento' text={selected.birthdate?.toDateString()} />
+      <ReadOnlyField icon={<CalendarMonthOutlined />} label='Nacimiento' text={formatDate(selected.birthdate)} />
+
         <ReadOnlyField icon={<ClassOutlined />} label='Materia' text={selected.course.name} />
         <ReadOnlyField icon={<EmailOutlined />} label='Correo' text={selected.email} />
         <ReadOnlyField icon={<BadgeOutlined />} label='DNI' text={selected.dni} />
