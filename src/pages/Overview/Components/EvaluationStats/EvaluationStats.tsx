@@ -34,13 +34,13 @@ export const EvaluationStats = () => {
   const unrated = total.length - approved - disapproved
  
   return (
-    <EvaluationStatsContainer>
-      <FloatingCard title='Entregas' width='220px'>
-        <div style={{ display: 'flex', width: '220px', justifyContent: 'space-evenly'}}>
+    <EvaluationStatsContainer >
+      <FloatingCard title='Entregas' width='220px' >
+        <div style={{ display: 'flex', width: '220px', justifyContent: 'space-evenly' }}>
           <AssignmentCounter vertical count={total.length} label='Total' />
           <AssignmentCounter vertical count={total.length - unrated} label='Corregidos' />
         </div>
-      </FloatingCard>
+      </FloatingCard >
       <AssignmentCounter color='var(--unahurGreen)' count={approved} label='Aprobados' />
       <AssignmentCounter color='var(--unahurRed)' count={disapproved} label='No Aprobados' />
       <AssignmentCounter color='var(--unahurGrey)' count={unrated} label='Sin Calificar' />

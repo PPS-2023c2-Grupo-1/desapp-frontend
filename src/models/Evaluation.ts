@@ -13,17 +13,20 @@ import {
 import { fixString } from '@src/util'
 
 export interface IEvaluation {
+  [x: string]: any
   id: number,
   assignment?: IAssignment,
   course?: ICourse,
   jtp?: IJtp,
   student?: IStudent,
   submitted?: ISubmitted,
-  type: number,
+  type: number
   variables: string[],
   variables2: string[],
  qualification: number,
   reflections: string,
+  reflectionsObj: {[key: number]: string},
+
 }
 
 export interface IEvaluationResponse {
@@ -62,6 +65,23 @@ export class Evaluation {
       if (!evaluation.assignment) _evaluation.assignment = assignment
       if (!evaluation.jtp) _evaluation.jtp = jtp
       if (!evaluation.student) _evaluation.student = student
+
+
+      const reflections = evaluation?.reflections || ''
+      const members = submitted?.members || []
+      const reflectionsObj: { [key: number]: string } = {};
+
+if (members.length === reflections.length) {
+  for (let i = 0; i < members.length; i++) {
+    const memberId = members[i];
+    const reflection = reflections[i];
+    reflectionsObj[memberId] = reflection;
+  }
+}
+
+      _evaluation.reflectionsObj = reflectionsObj
+
+
 
       this.evaluation = _evaluation
     } else {
@@ -114,6 +134,7 @@ export class EvaluationAdapter extends Evaluation {
       submitted: assignment_submitted ? new SubmittedAdapter(assignment_submitted).json : undefined,
       student: student ? new StudentAdapter(student).json : undefined,
       qualification: parseFloat(response.qualification),
+      reflectionsObj: {},
       variables: [
         fixString(variable1),
         fixString(variable2),

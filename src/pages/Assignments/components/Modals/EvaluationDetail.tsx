@@ -63,6 +63,20 @@ const totalSumAsString = totalSum?.toString();
 const professorEvaluations = evaluations.filter((evaluation) => evaluation.type === 1);
 const studentEvaluations = evaluations.filter((evaluation) => evaluation.type === 2 && evaluation.student?.id === submitted?.student?.id);
 const [showFullText, setShowFullText] = useState(false);
+const [studentsSums, setStudentsSums] = useState({});
+
+const reflections = submitted?.reflections || ''
+const members = submitted?.members || []
+
+// Declarar reflectionsObj a partir de las reflexiones y los miembros
+const reflectionsObj: { [key: number]: string } = {};
+if (evaluation?.reflectionsObj && submitted?.members) {
+  submitted.members.forEach((studentId) => {
+    if (evaluation.reflectionsObj[studentId]) {
+      reflectionsObj[studentId] = evaluation.reflectionsObj[studentId];
+    }
+  });
+}
 
   return (
     
@@ -72,8 +86,10 @@ const [showFullText, setShowFullText] = useState(false);
       title='Entrega'      
     >
 
-      { submitted?.reflections && <Quote label='Reflexion' text={submitted?.reflections} /> }
-      { evaluation?.reflections && <Quote label='Devolución' text={evaluation?.reflections} /> }
+
+{submitted?.reflections && <Quote label='Devolucion' text={submitted?.reflections} />}
+{evaluation?.reflections && <Quote label='Reflexion' text={evaluation?.reflections} />}
+
       <TagsContainer>
         
         
@@ -84,23 +100,39 @@ const [showFullText, setShowFullText] = useState(false);
         { submitted && <ReadOnlyField icon={<CalendarMonthOutlined />} label='Fecha Entrega' text={new Submitted(submitted).date} /> }
         <ReadOnlyField icon={<NumbersOutlined />} label='Evaluacion' text={submitted?.qualification || '-'} />
 
+    
+
 
   <ReadOnlyField icon={<NumbersOutlined />} label='Autoevaluacion' text={totalSumAsString || '-'} />
 
-        {submitted?.members && submitted?.members.map((studentId) => (
+
+
+  {submitted?.members?.map((studentId, index) => {
+  // Asegúrate de que 'evaluation' no sea undefined antes de intentar usar 'evaluation.variables'.
+  if (evaluation && evaluation.variables) {
+    const notasPorEstudiante = 5;  // Reemplazar con el número real de notas por estudiante si es necesario.
+    const start = index * notasPorEstudiante;
+    const end = start + notasPorEstudiante;
+    const studentNotes = evaluation.variables.slice(start, end);
+
+    const studentTotal = studentNotes.reduce((acc, note) => acc + parseFloat(note), 0);
+    const studentTotalAsString = studentTotal.toFixed(2); // Convierte a string con dos decimales para la presentación.
+
+    return (
+      <div key={studentId}>
+        <ReadOnlyField
+          icon={<SchoolOutlined />}
+          label={`Autoevaluación de ${studentId}`}
           
-  <div key={studentId}>
-    
-    <ReadOnlyField
-    
-    icon={<SchoolOutlined />}
-      label={`Autoevaluación de ${studentId}`}
-      text={totalSumAsString || '-'}    />
-  </div>
-))}
-
-
-       
+          text={studentTotalAsString || '-'} />
+      </div>
+    );
+  } else {
+    // Maneja el caso en que 'evaluation' o 'evaluation.variables' sea undefined.
+    // Puede ser retornando null o algún marcador de posición.
+    return null;
+  }
+})}
       </TagsContainer>
       {
         assignment && assignment.variables[0]  !== 'Esta actividad no será evaluada'  && evaluation   &&

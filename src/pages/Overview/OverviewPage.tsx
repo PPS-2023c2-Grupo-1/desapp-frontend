@@ -54,7 +54,6 @@ export const OverviewPage = () => {
             }
           />
           <EvaluationStats/>
-        <AssignmentsBar />
       </Box>
     </AppLayout>
     </SelectedProvider>

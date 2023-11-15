@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { getEvaluationColumns } from "./EvaluationColumns"
 import { IAssignment, ICourse, IEvaluation, IJtp } from '@models'
 import { selectAssignments, selectCourses, selectEvaluations, selectJtps, selectRole } from "@store"
-import { AssignmentSelector, CourseSelector, Field, JtpSelector, Table } from '@components'
+import { AssignmentSelector, CourseSelector, CourseSelectorYear, Field, JtpSelector, Table } from '@components'
 import {
   AssignmentDetailModal,
   EvaluationDetailModal,
@@ -109,6 +109,8 @@ export const EvaluationTable = () => {
                 onChange={handleCourse}
                 value={course?.id || -1}
               />
+              
+            
               <JtpSelector
                 onChange={handleJtp}
                 value={jtp?.id || -1}
