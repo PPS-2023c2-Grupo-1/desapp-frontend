@@ -10,6 +10,7 @@ import {
 import { useUpdateAdmin } from '@pages/Users/Admins/hooks'
 import { AdminContext, ModalContext } from '../../context'
 import { PasswordResetButton } from "../PasswordResetButton"
+import styled from 'styled-components'
 
 interface modalProps {
   clearSearchFilter: Function
@@ -29,15 +30,31 @@ export const UpdateAdminModal = ({ clearSearchFilter }: modalProps) => {
     handleUpdate,
   } = useUpdateAdmin()
 
+  const ContenedorBotones = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: justify; 
+  width: 100%;
+  
+`;
+  
+
+
   return (
     <>
       <Toaster toastOptions={{ duration: 3000 }} />
       <Modal
+      
         className='modalEditAdmin'
         onClose={handleClose}
         open={isOpenUpdate}
         title='Editar administrador'
-        footer={<UpdateButton disabled={isFormUncompleted} onClick={() => { clearSearchFilter(); handleUpdate(); }} />}
+        footer={
+          <ContenedorBotones>
+          <PasswordResetButton />
+        <UpdateButton disabled={isFormUncompleted} onClick={() => { clearSearchFilter(); handleUpdate(); }} />
+        </ContenedorBotones>
+        }
       >
         <FirstnameField
           required
@@ -55,7 +72,7 @@ export const UpdateAdminModal = ({ clearSearchFilter }: modalProps) => {
           onChange={handleEmail}
           value={email}
         />
-        <PasswordResetButton />
+      
         <Alert severity='error' enable={isFormUncompleted}>Completa todos los campos</Alert>
       </Modal>
     </>

@@ -22,6 +22,7 @@ export const ModalDialog = styled.div<ModalDialogProps>`
   trasitions: 0.5s linear;
   width: 100%;
   z-index: 1300;
+
 `;
 
 export const FullscreenModalContainer = styled.div`
