@@ -13,6 +13,7 @@ export const DeleteButton = (props: ButtonProps) => (
 
 export const UpdateButton = (props: ButtonProps) => (
   <Button
+ style={{ width: '100%' }} 
     color='unahurGreen'
     startIcon={<CheckOutlined />}
     text='Confirmar'

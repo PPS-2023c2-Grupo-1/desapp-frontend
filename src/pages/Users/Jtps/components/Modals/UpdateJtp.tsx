@@ -11,6 +11,7 @@ import { useUpdateJtp } from '@pages/Users/Jtps/hooks'
 import { FieldsRow } from './styles'
 import { JtpContext, ModalContext } from '../../context'
 import { PasswordResetButton } from '../PasswordResetButton'
+import styled from 'styled-components'
 
 interface modalProps {
   clearSearchFilter: Function
@@ -31,6 +32,16 @@ export const UpdateJtpModal = ({ clearSearchFilter }: modalProps) => {
     handleUpdate,
   } = useUpdateJtp()
 
+  const ContenedorBotones = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: justify; 
+  width: 100%;
+  
+`;
+
+
+
   return (
     <>
       <Toaster toastOptions={{ duration: 3000 }} />
@@ -39,7 +50,13 @@ export const UpdateJtpModal = ({ clearSearchFilter }: modalProps) => {
         onClose={handleClose}
         open={isOpenUpdate}
         title='Editar Jefe de trabajos Practicos'
-        footer={<UpdateButton disabled={isFormUncompleted} onClick={()=> { clearSearchFilter(); handleUpdate(); }} />}
+        footer={
+          <ContenedorBotones>
+            <PasswordResetButton />
+        <UpdateButton disabled={isFormUncompleted} onClick={()=> { clearSearchFilter(); handleUpdate(); }} />
+     
+        </ContenedorBotones>
+      }
       >
         <FieldsRow>
           <FirstnameField
@@ -66,7 +83,7 @@ export const UpdateJtpModal = ({ clearSearchFilter }: modalProps) => {
             value={course?.id || -1}
           />
         </FieldsRow>
-        <PasswordResetButton />
+        
         <Alert severity='error' enable={isFormUncompleted}>Completa todos los campos</Alert>
       </Modal>
     </>
