@@ -1,5 +1,4 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux'
 import {
   getAdmins,
   getAssignments,
@@ -17,58 +16,46 @@ import {
   selectToken,
   setToken,
   setUser,
-} from "@store";
+} from '@store'
+
+const updateStore = () => {
+  const user = selectAuthenticatedUser()
+  const dispatch = useDispatch()
+
+  if(user?.hasOwnProperty('course')) {
+    dispatch(getSubmittedByJtp())
+    dispatch(getEvaluationsByJtp())
+    dispatch(getAssignmentsByJtp())
+    dispatch(getStudentsByCourse())
+    dispatch(getCourses())
+  } else {
+    dispatch(getAdmins())
+    dispatch(getJtps())
+    dispatch(getSubmitted())
+    dispatch(getEvaluations())
+    dispatch(getAssignments())
+    dispatch(getCourses())
+    dispatch(getStudents())
+  }
+}
+
+const tryAuthenticateFromLocalStorage = () => {
+  const dispatch = useDispatch()
+  const user = localStorage.getItem("user")
+  const token = localStorage.getItem("token")
+  
+  if (token && user) {
+    dispatch(setUser(JSON.parse(user)))
+    dispatch(setToken(token))
+    dispatch(login())
+  }
+}
 
 export const useAuth = () => {
+  const token = selectToken()
 
-  const updateStore = (dispatch: any, user: any) => {
-    
-    if (user?.hasOwnProperty("course")) {
-      dispatch(getSubmittedByJtp());
-      dispatch(getEvaluationsByJtp());
-      dispatch(getAssignmentsByJtp());
-      dispatch(getStudentsByCourse());
-      dispatch(getCourses());
-    } else {
-      dispatch(getAdmins());
-      dispatch(getJtps());
-      dispatch(getSubmitted());
-      dispatch(getEvaluations());
-      dispatch(getAssignments());
-      dispatch(getCourses());
-      dispatch(getStudents());
-    }
-  };
+  if (token) { updateStore() }
+  else { tryAuthenticateFromLocalStorage() }
 
-  const tryAuthenticateFromLocalStorage = (dispatch: any) => {
-    
-    const user = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-
-    if (token && user) {
-      dispatch(setUser(JSON.parse(user)));
-      dispatch(setToken(token));
-      dispatch(login());
-    }
-  };
-
-  console.log("Hola estoy antes del useDispatch");
-  const dispatch = useDispatch();
-  console.log("estoy en medio del useDispatch y selecToken")
-  const token = selectToken();
-  console.log(token);
-  const user = selectAuthenticatedUser(); 
-  // todos los hooks tiene que empezar con use.
-  // cambiar nombre a useSelectAuthenticatedUser()
-  console.log(user);
-  
-  if (token) {
-    console.log("useAuth con token");
-    updateStore(dispatch, user);
-  } else {
-    console.log("useAuth SIN token");
-    tryAuthenticateFromLocalStorage(dispatch);
-  }
-
-  return !!token;
-};
+  return !!token
+}

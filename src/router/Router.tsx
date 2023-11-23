@@ -20,10 +20,8 @@ const LoginRoutes = () => (
 )
 
 const AppRoutes = () => {
-  console.log("estoy adentro de appRoutes, antes");
   const role = selectRole().toLocaleLowerCase()
-  console.log("estoy adentro de appRoutes, despues");
-  console.log(role);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -50,12 +48,8 @@ const AppRoutes = () => {
 }
 
 export const Router = () => {
-  console.log("LLegamos hasta aca, hooks");
-  const isLogged = useAuth();
-  console.log("Pase el useAuth");
-  console.log(isLogged);
+  const isLogged = useAuth()
 
-  
   return isLogged
     ? <AppRoutes />
     : <LoginRoutes />

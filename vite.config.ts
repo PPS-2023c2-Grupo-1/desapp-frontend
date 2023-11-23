@@ -6,15 +6,7 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   publicDir: "public",
-  server: { 
-    port: parseInt(process.env.PORT || '3002'),
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3005',
-        changeOrigin: true,
-      }
-    } 
-  },
+  server: { port: parseInt(process.env.PORT || '3002') },
   resolve: {
     alias: [
       { find: '@src', replacement: path.resolve(__dirname, 'src') },
@@ -31,4 +23,3 @@ export default defineConfig({
     ],
   },
 })
-
