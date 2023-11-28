@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { getAssignmentColumns } from "./AssignmentColumns"
-import { AssignmentSelector, CourseSelector, Field, JtpSelector, Table } from '@components'
+import { AssignmentSelector, CourseSelector, CourseSelectorYear, Field, JtpSelector, Table } from '@components'
 import { IAssignment, ICourse, IJtp } from '@models'
 import { selectAssignments, selectCourses, selectJtps, selectRole } from '@store'
 import { AssignmentDetailModal } from "../Modals"
 import { SelectChangeEvent } from "@mui/material"
+import { CalendarMonthOutlined, ClassOutlined, CoPresentOutlined } from "@mui/icons-material"
+
 
 export const AssignmentTable = () => {
   const role = selectRole().toLocaleLowerCase()
@@ -52,6 +54,12 @@ export const AssignmentTable = () => {
     setCourse(courses.find(x => x.id === event.target.value as number))
   }
 
+  const handleCourseYear = (event: SelectChangeEvent<unknown>) => {
+    const selectedStart = event.target.value as string;
+    const filteredAssignments = assignments.filter(x => x.date.start.toString() === selectedStart);
+    setFiltered(filteredAssignments);
+}
+
   const handleJtp = (event: SelectChangeEvent<unknown>) => {
     setJtp(jtps.find(x => x.id === event.target.value as number))
   }
@@ -69,6 +77,11 @@ export const AssignmentTable = () => {
               onChange={handleCourse}
               value={course?.id || -1}
             />
+          <CourseSelectorYear
+              onChange={handleCourseYear}
+              value={assignments[0]?.date.start.getFullYear() || -1}
+              />
+            
             <JtpSelector
               onChange={handleJtp}
               value={jtp?.id || -1}

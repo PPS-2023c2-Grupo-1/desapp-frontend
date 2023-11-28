@@ -57,7 +57,10 @@ export class Student extends User {
     if(student === undefined) {
       super({ id: -1, email: '', name: { first: '', last: '' } })
       this._courses = {
-        current: { id: -1, isPreviousCourse: false, parent: -1, name: ''},
+        current: {
+          id: -1, isPreviousCourse: false, parent: -1, name: '',
+          year: ""
+        },
         others: [],
         lastChangeDate: new Date(), 
         parent: { id: -1, isPreviousCourse: false, parent: -1, name: ''},

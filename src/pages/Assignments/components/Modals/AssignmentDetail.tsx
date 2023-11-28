@@ -20,7 +20,7 @@ export const AssignmentDetailModal = () => {
       <Quote text={assignment?.description.long || ''} />
       <TagsContainer>
         <ReadOnlyField icon={<ClassOutlined />} label='Curso' text={_assignment?.json.course?.name} />
-        { jtp && <ReadOnlyField icon={<CoPresentOutlined />} label='Responsable' text={jtp?.fullName()} /> }
+        { jtp && <ReadOnlyField icon={<CoPresentOutlined />} label='Responsable' text={jtp.fullName()} /> }
         <ReadOnlyField icon={<CalendarMonthOutlined />} label='Inicio' text={_assignment?.start} />
         <ReadOnlyField icon={<CalendarMonthOutlined />} label='Fin' text={_assignment?.end} />
       </TagsContainer>

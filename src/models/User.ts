@@ -3,11 +3,13 @@ import { ICourseResponse, Jtp } from "@models"
 export interface ICredentials {
     email: string,
     password?: string,
+
   }
 
 export interface IUser extends ICredentials{
     id?: number,
     role?: string,
+ 
     name: {
       first: string,
       last: string
@@ -21,6 +23,7 @@ export interface IUserResponse {
     name: string,
     lastName: string,
     email: string,
+    
 }
 
 interface IName {
@@ -33,6 +36,7 @@ export class User {
   protected _role: string | undefined
   protected _name!: IName
   protected _email!: string
+ 
 
   constructor(user: IUser | undefined) {
     if(user === undefined) return
@@ -41,7 +45,7 @@ export class User {
     this._name = {
       first: user.name.first,
       last: user.name.last,
-    }
+    } 
     this._email = user.email
     this._role = user.role
   }
@@ -50,6 +54,7 @@ export class User {
   get name(): IName { return this._name }
   get email(): string { return this._email }
   get role(): string | undefined { return this._role }
+  //get hash_id(): string { return this._hash_id }
   get firstname(): string { return this.name.first }
   get lastname(): string { return this.name.last }
 
@@ -87,7 +92,7 @@ export class UserAdapter extends User {
       ...rest,
       id: response.id || -1,
       name: { first: name, last: lastName},
-      role: response.role?.toLocaleLowerCase()
+      role: response.role?.toLocaleLowerCase(),
     })
   }
 }

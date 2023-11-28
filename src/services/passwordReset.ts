@@ -12,13 +12,16 @@ export const passwordReset = async (resetId: any, password: any, role: string | 
   }
 }
 
-export const resetPasswordForUser = async (mail: string, role: string, id: number) => {
+export const resetPasswordForUser = async ( mail: string, role: string, id: number ) => {
   try {
-    console.log(mail, role, id)
+    console.log(mail, role, id, )
+    console.log('hasta aca llego');
     const response = await axios.post(`/passwordReset/`, {
+      
       mail: mail,
       role: role,
       id: id,
+     
     })
     return Promise.resolve(response.data)
   } catch (err) {

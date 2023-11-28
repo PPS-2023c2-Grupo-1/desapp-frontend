@@ -102,3 +102,85 @@ h6, label {
 }
 
 .hide { display: none !important; }
+
+
+.buttonstatic {
+  background-color: #1E90FF; /* Un azul que resalte */
+  display: flex; /* Esto activa flexbox */
+
+  color: white; /* Contraste con el fondo */
+  padding: 10px 20px; /* Espaciado interno para hacerlo más grande */
+  border: none; /* Sin borde si prefieres un diseño plano */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  font-size: 16px; /* Tamaño de letra legible */
+  cursor: pointer; /* Indicador de que es clickeable */
+  transition: background-color 0.3s; /* Animación suave al cambiar de color */
+}
+
+.buttonstatic:hover {
+  background-color: #4169E1; /* Un azul más oscuro al pasar el cursor */
+}
+
+
+
+
+
+.cards-containerStatic {
+  display: flex;
+  justify-content: space-around; /* Ajusta el contenido */
+  gap: 20px; /* Esto crea un espacio entre los elementos hijo */
+  margin-bottom: 20px;
+}
+
+.cardStatic  {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  margin: 10px;
+  flex: 1; /* Esto asegurará que todas las tarjetas se expandan y tengan el mismo tamaño */
+  /* Opcionalmente, puedes añadir un máximo y un mínimo */
+  min-width: 0; /* Esto asegura que flex-shrink funcione correctamente */
+  max-width: calc(50% - 20px); /* Asumiendo que gap es de 20px, ajusta según tu diseño */
+}
+
+.cardStatic {
+  width: 500px; /* Ajusta esto según el tamaño deseado */
+}
+
+.cardStatic:hover {
+  transform: translateY(-5px);
+}
+
+.card-contentStatic h2 {
+  margin-top: 0;
+}
+
+.button-static2 {
+  background-color: #1E90FF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.button-static2:hover {
+  background-color: #4169E1;
+}
+
+
+.box-statistics2 {
+ 
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+}
+
+.box-statistics-visible {
+  max-height: 1000px; 
+}

@@ -37,7 +37,7 @@ export const Bar = ({ data }: barProps) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'Trabajo Práctico',
+                legend: 'Variable - Notas',
                 legendPosition: 'middle',
                 legendOffset: 32
             }}
@@ -45,7 +45,7 @@ export const Bar = ({ data }: barProps) => {
                 tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
-                legend: 'Nota',
+                legend: 'Trabajo Práctico',
                 legendPosition: 'middle',
                 legendOffset: -350
             }}

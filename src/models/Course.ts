@@ -5,7 +5,7 @@ export interface ICourseResponse {
   isPreviousCourse: number,
   name: string,
   parentCourse: number | null,
-  year: number | null,
+  year: string,
 }
 
 export interface ICourse {
@@ -13,7 +13,7 @@ export interface ICourse {
   isPreviousCourse: boolean,
   name: string,
   parent?: number ,
-  year?: number,
+  year: string,
 }
 
 export class Course {
@@ -33,7 +33,7 @@ export class Course {
       isPreviousCourse: this.course.isPreviousCourse ? 1 : 0,
       name: this.course.name,
       parentCourse: this.course.parent ? 1 : 0,
-      year: this.course.year || null,
+      year: this.course.year,
     }
   }
 }
@@ -44,7 +44,7 @@ export class CourseAdapter extends Course {
       id: course.id,
       name: fixString(course.name),
       parent: course.parentCourse ? course.parentCourse : undefined,
-      year: course.year ? course.year : undefined,
+      year: fixString(course.year),
       isPreviousCourse: course.isPreviousCourse !== 0,
     })
   }
