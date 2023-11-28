@@ -5,6 +5,11 @@ import {  barPropsVariable } from './props'
 
 
 export const BarVariables = ({ data }: barPropsVariable) => {
+
+// Inicializa un array vacío para almacenar los nombres de las variables
+
+
+
     let max = data ? Math.max(...data.map(x => x.tp.length)) * 7 : 0;
     
     
