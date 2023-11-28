@@ -20,12 +20,15 @@ interface selectedContextValues {
   jtp?: IJtp,
   student?: IStudent,
   submitted?: ISubmitted,
+  jtpEvaluation?: IEvaluation, // Agrega esta propiedad
   setAssignment: Function,
   setCourse: Function,
   setEvaluation: Function,
   setJtp: Function,
   setStudent: Function,
   setSubmitted: Function,
+  setJtpEvaluation: Function,
+  
 }
 
 const defaultValues = {
@@ -35,6 +38,7 @@ const defaultValues = {
   setJtp: () => {},
   setStudent: () => {},
   setSubmitted: () => {},
+  setJtpEvaluation: () => {},
 }
 
 export const SelectedContext = createContext<selectedContextValues>(defaultValues)
@@ -46,6 +50,7 @@ export const SelectedProvider = ({ children }: { children: ReactNode }) => {
   const [submitted, setSubmitted] = useState<ISubmitted | undefined>()
   const [course, setCourse] = useState<ICourse | undefined>()
   const [evaluation, setEvaluation] = useState<IEvaluation | undefined>()
+  const [jtpEvaluation, setJtpEvaluation] = useState<IEvaluation | undefined>()
 
   return (
     <SelectedContext.Provider
@@ -56,12 +61,14 @@ export const SelectedProvider = ({ children }: { children: ReactNode }) => {
         jtp,
         student,
         submitted,
+        jtpEvaluation,
         setAssignment,
         setCourse,
         setEvaluation,
         setJtp,
         setStudent,
         setSubmitted,
+        setJtpEvaluation,
       }}>
       {children}
     </SelectedContext.Provider>
