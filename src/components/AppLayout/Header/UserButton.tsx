@@ -49,6 +49,7 @@ export const UserButton = () => {
 
   return (
     <>
+      <Name>Bienvenido {user.fullName()}  </Name>
     <IconButton
       onClick={handleClick}
       aria-controls={open ? 'resources-menu' : undefined}
@@ -57,6 +58,7 @@ export const UserButton = () => {
       sx={{ height: '40px', width: '40px'}}
     >
       <Avatar />
+    
     </IconButton>
     <Menu
       open={open}
