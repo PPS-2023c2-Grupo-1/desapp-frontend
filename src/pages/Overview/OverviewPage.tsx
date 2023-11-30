@@ -8,7 +8,7 @@ import { Skeleton } from "@mui/material"
 
 
 export const OverviewPage = () => {
-  const total = selectEvaluations().map(x => x.variables.reduce((a, b) => a + b, 0))
+  const total = selectEvaluations().map(x => x.variables.map(parseFloat).reduce((a, b) => a + b, 0))
 
   const approved = total.filter(x => x >= 4 && x !== 0).length
   const disapproved = total.filter(x => x < 4 && x !== 0).length
@@ -54,7 +54,6 @@ export const OverviewPage = () => {
             }
           />
           <EvaluationStats/>
-        <AssignmentsBar />
       </Box>
     </AppLayout>
     </SelectedProvider>
