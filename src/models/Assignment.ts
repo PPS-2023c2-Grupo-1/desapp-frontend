@@ -22,9 +22,12 @@ export interface IAssignment {
     end: Date
   },
   variables: string[],
+  variables2: string[],
   type: number,
   status: boolean,
+  status2: boolean,
   individualProcess: boolean,
+  individualProcess1: boolean,
   number: number,
   name: string,
   url: string,
@@ -51,7 +54,9 @@ export interface IAssignmentResponse {
   var5: string,
   type: number,
   status: number,
-  individualProcess: number,
+  status2: number,
+  individualProcess: number,  
+  individualProcess1: boolean,
 }
 
 export class Assignment {
@@ -87,7 +92,9 @@ export class AssignmentAdapter extends Assignment {
       endDate,
       var1, var2, var3, var4, var5,
       status,
+      status2,
       individualProcess,
+      individualProcess1,
       name,
       ...rest
     } = assignment
@@ -115,6 +122,16 @@ export class AssignmentAdapter extends Assignment {
         fixString(var5)
       ],
       status: status === 1,
+
+      individualProcess1: individualProcess === 2,
+      variables2: [
+        fixString(var1),
+        fixString(var2),
+        fixString(var3),
+        fixString(var4),
+        fixString(var5)
+      ],
+      status2: status === 2,
 
     })
   }
