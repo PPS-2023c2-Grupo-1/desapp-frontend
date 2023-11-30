@@ -104,6 +104,28 @@ h6, label {
 .hide { display: none !important; }
 
 
+.buttonstatic {
+  background-color: #1E90FF; /* Un azul que resalte */
+  display: flex; /* Esto activa flexbox */
+
+  color: white; /* Contraste con el fondo */
+  padding: 10px 20px; /* Espaciado interno para hacerlo más grande */
+  border: none; /* Sin borde si prefieres un diseño plano */
+  border-radius: 5px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  font-size: 16px; /* Tamaño de letra legible */
+  cursor: pointer; /* Indicador de que es clickeable */
+  transition: background-color 0.3s; /* Animación suave al cambiar de color */
+}
+
+.buttonstatic:hover {
+  background-color: #4169E1; /* Un azul más oscuro al pasar el cursor */
+}
+
+
+
+
+
 .cards-containerStatic {
   display: flex;
   justify-content: space-around; /* Ajusta el contenido */
