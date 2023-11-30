@@ -96,9 +96,9 @@ submitted.members.forEach((studentId) => {
     
 
 
-<ReadOnlyField icon={<NumbersOutlined />} label='Autoevaluacion' text={totalSumAsString || '-'} />      </TagsContainer>
+<ReadOnlyField icon={<NumbersOutlined />} label='Autoevaluacion' text={totalSumAsString || '-'} />      
 {submitted?.members?.map((studentId, index) => {
-  // Asegúrate de que 'evaluation' no sea undefined antes de intentar usar 'evaluation.variables'.
+  // Asegurarse de que 'evaluation' no sea undefined antes de intentar usar 'evaluation.variables'.
   if (evaluation && evaluation.variables) {
     const notasPorEstudiante = 5;  // Reemplazar con el número real de notas por estudiante si es necesario.
     const start = index * notasPorEstudiante;
